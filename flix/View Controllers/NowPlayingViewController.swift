@@ -11,13 +11,13 @@ import AlamofireImage
 
 class NowPlayingViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   var refreshControl: UIRefreshControl!
-
+  
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   @IBOutlet weak var tableView: UITableView!
   var movies: [[String: Any]] = []
   override func viewDidLoad() {
-        super.viewDidLoad()
-   
+    super.viewDidLoad()
+    
     tableView.dataSource = self
     tableView.delegate = self
     refreshControl = UIRefreshControl()
@@ -26,7 +26,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UITable
     activityIndicator.startAnimating()
     fetchMovies()
     activityIndicator.stopAnimating()
-  
+    
   }
   
   @objc func didPullToRefresh(_ refreshControl: UIRefreshControl){
@@ -63,15 +63,15 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UITable
     }
     task.resume()        // Do any additional setup after loading the view.
   }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+  
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return movies.count
   }
-
+  
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
     let movie = movies[indexPath.row]
@@ -88,14 +88,22 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UITable
   }
   
   
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+  
+  // MARK: - Navigation
+  
+  // In a storyboard-based application, you will often want to do a little preparation before navigation
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    let cell = sender as! UITableViewCell
+    if let indexPath = tableView.indexPath(for: cell){
+      let movie = movies[indexPath.row]
+      let detailViewController = segue.destination as! DetailViewController
+      detailViewController.movie = movie
     }
-    */
-
+    
+    
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
+  }
+  
+  
 }
