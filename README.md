@@ -1,5 +1,10 @@
 # Flix
 
+![Swift](https://img.shields.io/badge/Swift-3%2B-F05138?logo=swift&logoColor=white)
+![iOS 9+](https://img.shields.io/badge/iOS-9%2B-000000?logo=apple&logoColor=white)
+![UIKit](https://img.shields.io/badge/UIKit-TableView%20%7C%20CollectionView-blue)
+![TMDb](https://img.shields.io/badge/API-TMDb-01B4E4)
+
 An iOS movie browser built with Swift and UIKit, powered by The Movie Database (TMDb) API. Features both a list view and a collection grid layout.
 
 ## Features
