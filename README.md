@@ -5,16 +5,17 @@
 ![UIKit](https://img.shields.io/badge/UIKit-TableView%20%7C%20CollectionView-blue)
 ![TMDb](https://img.shields.io/badge/API-TMDb-01B4E4)
 
-An iOS movie browser built with Swift and UIKit, powered by The Movie Database (TMDb) API. Features both a list view and a collection grid layout.
+![Demo](docs/assets/demo2.gif)
+
+iOS movie browser with both a list view and a collection grid layout, powered by the TMDb API.
 
 ## Features
 
 - Now playing movies list with pull-to-refresh
 - Collection view grid of movie posters
 - Tab bar navigation between list and grid layouts
-- Movie detail view accessible from both list and grid
-- Progressive image loading (low-res placeholder → full resolution)
-- Loading state indicator while fetching data
+- Movie detail view accessible from both views
+- Progressive image loading (low-res placeholder to full resolution)
 - Auto Layout for all screen sizes and orientations
 
 ## Tech Stack
@@ -29,14 +30,10 @@ An iOS movie browser built with Swift and UIKit, powered by The Movie Database (
 ## Setup
 
 ```bash
-git clone https://github.com/gerardrecinto/flix2.git
-cd flix2
+git clone https://github.com/gerardrecinto/flix-ios.git
+cd flix-ios
 pod install
 open flix.xcworkspace
 ```
 
 Add your TMDb API key before building.
-
-## Demo
-
-![Demo](https://imgur.com/3dDlnuL.gif)
