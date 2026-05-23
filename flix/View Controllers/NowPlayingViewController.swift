@@ -20,6 +20,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UITable
     
     tableView.dataSource = self
     tableView.delegate = self
+    tableView.rowHeight = 120
     refreshControl = UIRefreshControl()
     refreshControl.addTarget(self, action: #selector(NowPlayingViewController.didPullToRefresh(_:)), for: .valueChanged)
     tableView.insertSubview(refreshControl, at: 0)

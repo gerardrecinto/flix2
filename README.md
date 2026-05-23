@@ -12,7 +12,7 @@
 
 ## Features
 
-- **`UITableView` list layout:** `NowPlayingViewController` fetches `api.themoviedb.org/3/movie/now_playing` via `URLSession.dataTask`, deserializes the JSON response with `JSONSerialization.jsonObject`, and binds title, overview, and poster to `MovieCell` using `UITableViewAutomaticDimension` row heights
+- **`UITableView` list layout:** `NowPlayingViewController` fetches `api.themoviedb.org/3/movie/now_playing` via `URLSession.dataTask`, deserializes the JSON response with `JSONSerialization.jsonObject`, and binds title, overview, and poster to `MovieCell` with a fixed row height of 120pt
 - **`UICollectionView` grid layout:** `SuperheroViewController` fetches movies similar to a fixed TMDb movie ID via `/movie/297762/similar` and displays them in `PosterCell` — a bare `UICollectionViewCell` with a single `posterImageView`. Cell width is computed at runtime: `width = collectionView.frame.width / cellsPerLine - interItemSpacingTotal / cellsPerLine` with `layout.itemSize` set to `CGSize(width: width, height: width * 3/2)` for a 2:3 poster aspect ratio
 - **AlamofireImage poster loading:** Both `MovieCell` and `PosterCell` call `posterImageView.af_setImage(withURL: posterURL)`, routing through AlamofireImage's `ImageDownloader` which deduplicates in-flight requests for the same URL and caches decoded `UIImage` instances in an `AutoPurgingImageCache`
 - **`UIActivityIndicatorView` load state:** `NowPlayingViewController` calls `activityIndicator.startAnimating()` before `fetchMovies()` and `stopAnimating()` in the `URLSession` completion handler

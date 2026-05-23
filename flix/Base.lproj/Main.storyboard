@@ -43,7 +43,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="anP-Tp-wiX">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="anP-Tp-wiX">
                                                     <rect key="frame" x="156" y="25" width="31" height="14.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
@@ -55,7 +55,6 @@
                                                 <constraint firstItem="SG9-Dv-hZz" firstAttribute="leading" secondItem="qes-jL-wA5" secondAttribute="leading" constant="8" id="2Dv-Ay-vN4"/>
                                                 <constraint firstAttribute="trailing" secondItem="04Q-8d-Pap" secondAttribute="trailing" constant="8" id="Fd2-2X-bgI"/>
                                                 <constraint firstItem="SG9-Dv-hZz" firstAttribute="top" secondItem="qes-jL-wA5" secondAttribute="top" constant="8" id="Nk0-9B-3i6"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="anP-Tp-wiX" secondAttribute="bottom" constant="20" id="ZFn-dn-jyW"/>
                                                 <constraint firstItem="anP-Tp-wiX" firstAttribute="leading" secondItem="SG9-Dv-hZz" secondAttribute="trailing" constant="8" id="bT4-rS-982"/>
                                                 <constraint firstItem="SG9-Dv-hZz" firstAttribute="leading" secondItem="qes-jL-wA5" secondAttribute="leading" constant="8" id="jCa-z3-ARj"/>
                                                 <constraint firstItem="anP-Tp-wiX" firstAttribute="centerY" secondItem="qes-jL-wA5" secondAttribute="centerY" constant="-2.75" id="kpX-y4-Eie"/>
