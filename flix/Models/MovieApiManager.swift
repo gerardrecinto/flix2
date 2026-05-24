@@ -18,15 +18,18 @@ class MovieApiManager {
   }
 
   func nowPlayingMovies(completion: @escaping ([Movie]?, Error?) -> ()) {
-    let url = URL(string: MovieApiManager.baseUrl + "now_playing?api_key=\(MovieApiManager.apiKey)")!
+    guard let url = URL(string: MovieApiManager.baseUrl + "now_playing?api_key=\(MovieApiManager.apiKey)") else {
+      completion(nil, nil)
+      return
+    }
     let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
     let task = session.dataTask(with: request) { [weak self] (data, response, error) in
-      // This will run when the network request returns
+      guard self != nil else { return }
       if let data = data {
         guard let dataDictionary = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return }
-        let movieDictionaries = dataDictionary["results"] as! [[String: Any]]
-
-        //et movies = Movie.movies(dictionaries: movieDictionaries)
+        guard let movieDictionaries = dataDictionary["results"] as? [[String: Any]] else { return }
+        _ = movieDictionaries
+        //let movies = Movie.movies(dictionaries: movieDictionaries)
         //completion(movies, nil)
       } else {
         completion(nil, error)
