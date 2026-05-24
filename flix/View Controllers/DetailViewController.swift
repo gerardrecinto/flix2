@@ -16,6 +16,7 @@ enum MovieKeys{
   static let posterPath = "poster_path"
 }
 
+@MainActor
 class DetailViewController: UIViewController {
 
   @IBOutlet weak var backdropImageView: UIImageView!
@@ -32,27 +33,15 @@ class DetailViewController: UIViewController {
         titleLabel.text = movie[MovieKeys.title] as? String
         releaseDateLabel.text = movie[MovieKeys.releaseDate] as? String
         overviewLabel.text = movie[MovieKeys.overview] as? String
-        let backdropPathString = movie[MovieKeys.backdropPath] as? String
-        let posterPathString = movie[MovieKeys.posterPath] as? String
         let baseURLString = "https://image.tmdb.org/t/p/w500"
-        let backdropURL = URL(string: baseURLString + backdropPathString!)
-        backdropImageView.loadImage(from: backdropURL!)
-        let posterPathURL = URL(string: baseURLString + posterPathString!)
-        posterImageView.loadImage(from: posterPathURL!)
+        if let backdropPathString = movie[MovieKeys.backdropPath] as? String,
+           let backdropURL = URL(string: baseURLString + backdropPathString) {
+            backdropImageView.loadImage(from: backdropURL)
+        }
+        if let posterPathString = movie[MovieKeys.posterPath] as? String,
+           let posterURL = URL(string: baseURLString + posterPathString) {
+            posterImageView.loadImage(from: posterURL)
+        }
       }
-        // Do any additional setup after loading the view.
     }
-
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
