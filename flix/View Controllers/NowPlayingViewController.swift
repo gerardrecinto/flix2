@@ -8,6 +8,7 @@
 
 import UIKit
 
+@MainActor
 class NowPlayingViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   var refreshControl: UIRefreshControl!
 
@@ -36,10 +37,11 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UITable
   }
 
   func fetchMovies(){
-    let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")!
+    guard let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed") else { return }
     let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
     let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
     let task = session.dataTask(with: request) { [weak self] (data, response, error) in
+      guard let self = self else { return }
       // This will run when the network request returns
       if let error = error {
         print(error.localizedDescription)
@@ -47,21 +49,18 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UITable
         self.activityIndicator.startAnimating()
         guard let dataDictionary = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return }
 
-        // TODO: Get the array of movies
-        let movies = dataDictionary["results"] as! [[String: Any]]
+        guard let movies = dataDictionary["results"] as? [[String: Any]] else { return }
         self.movies = movies
         self.tableView.reloadData()
         self.refreshControl.endRefreshing()
-        // TODO: Store the movies in a property to use elsewhere
         for movie in movies {
-          let title = movie["title"] as! String
+          let title = movie["title"] as? String ?? ""
           print(title)
         }
-        // TODO: Reload your table view data
         self.activityIndicator.stopAnimating()
       }
     }
-    task.resume()        // Do any additional setup after loading the view.
+    task.resume()
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -71,15 +70,15 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UITable
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
     let movie = movies[indexPath.row]
-    let title = movie["title"] as! String
-    let overview = movie["overview"] as! String
+    let title = movie["title"] as? String ?? ""
+    let overview = movie["overview"] as? String ?? ""
     cell.titleLabel.text = title
     cell.overviewLabel.text = overview
 
-    let posterPathString = movie["poster_path"] as! String
-    let baseURLString = "https://image.tmdb.org/t/p/w500"
-    let posterURL = URL(string: baseURLString + posterPathString)!
-    cell.posterImageView.loadImage(from: posterURL)
+    if let posterPathString = movie["poster_path"] as? String,
+       let posterURL = URL(string: "https://image.tmdb.org/t/p/w500" + posterPathString) {
+      cell.posterImageView.loadImage(from: posterURL)
+    }
     return cell
   }
 
@@ -89,16 +88,12 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UITable
 
   // In a storyboard-based application, you will often want to do a little preparation before navigation
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    let cell = sender as! UITableViewCell
-    if let indexPath = tableView.indexPath(for: cell){
-      let movie = movies[indexPath.row]
-      let detailViewController = segue.destination as! DetailViewController
+    guard let cell = sender as? UITableViewCell,
+          let indexPath = tableView.indexPath(for: cell) else { return }
+    let movie = movies[indexPath.row]
+    if let detailViewController = segue.destination as? DetailViewController {
       detailViewController.movie = movie
     }
-
-
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
   }
 
 
